@@ -18,4 +18,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(401).body("Authentication is Required");
     }
 
+    @ExceptionHandler(NoSearchParamException.class)
+    public ResponseEntity<String> handleNoSearchParamException(NoSearchParamException e) {
+        return ResponseEntity.status(400).body(e.getMessage());
+    }
+
 }

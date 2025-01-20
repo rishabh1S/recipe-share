@@ -33,8 +33,10 @@ public class Recipe {
 
     @ElementCollection
     @CollectionTable(name = "recipe_ingredients", joinColumns = @JoinColumn(name = "recipe_id"))
-    @Column(name = "ingredient", nullable = false)
+    @Column(name = "ingredient", columnDefinition = "TEXT", nullable = false)
     private List<String> ingredients;
+
+    private String category;
 
     @Column(nullable = false, length = 2000)
     private String instructions;
