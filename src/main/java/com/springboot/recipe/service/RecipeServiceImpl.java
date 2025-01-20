@@ -3,10 +3,13 @@ package com.springboot.recipe.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.springboot.recipe.exception.NoSearchParamException;
 import com.springboot.recipe.model.Recipe;
 import com.springboot.recipe.repository.RecipeRepo;
 
+@Service
 public class RecipeServiceImpl implements RecipeService {
 
     @Autowired
@@ -42,6 +45,18 @@ public class RecipeServiceImpl implements RecipeService {
         if (recipeRepo.existsById(id)) {
             recipeRepo.deleteById(id);
         }
+    }
+
+    @Override
+    public List<Recipe> searchRecipes(String name, String ingredient, String category) {
+        if (isNullOrEmpty(name) && isNullOrEmpty(ingredient) && isNullOrEmpty(category)) {
+            throw new NoSearchParamException("At least one search parameter must be provided.");
+        }
+        return recipeRepo.searchRecipes(name, ingredient, category);
+    }
+
+    private boolean isNullOrEmpty(String str) {
+        return str == null || str.isEmpty();
     }
 
 }

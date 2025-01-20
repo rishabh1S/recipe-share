@@ -2,11 +2,8 @@ package com.springboot.recipe.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.springboot.recipe.model.Recipe;
 
-@Service
 public interface RecipeService {
     public List<Recipe> getAllRecipes();
 
@@ -17,4 +14,6 @@ public interface RecipeService {
     public Recipe updateRecipe(long id, Recipe recipe);
 
     public void deleteRecipe(long id);
+
+    public List<Recipe> searchRecipes(String name, String ingredient, String category);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.recipe.model.Recipe;
@@ -71,6 +72,22 @@ public class RecipeController {
             return ResponseEntity.status(200).body("Recipe deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error deleting recipe: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchRecipes(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String ingredient,
+            @RequestParam(required = false) String category) {
+        try {
+            List<Recipe> recipes = recipeService.searchRecipes(name, ingredient, category);
+            if (recipes.isEmpty()) {
+                return ResponseEntity.status(200).body("No recipes found for the given criteria.");
+            }
+            return ResponseEntity.status(200).body(recipes);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error searching recipes: " + e.getMessage());
         }
     }
 
