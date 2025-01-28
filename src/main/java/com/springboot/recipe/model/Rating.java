@@ -1,5 +1,6 @@
 package com.springboot.recipe.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class Rating {
 
     @ManyToOne
     @JoinColumn(name = "recipe_id", nullable = false)
+    @JsonBackReference
     private Recipe recipe;
 
     private int rating;
